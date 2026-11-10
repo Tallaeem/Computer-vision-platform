@@ -1,0 +1,428 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision Studio | Computer Vision</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">V</div>
+            <div>
+                <h2>Vision<span>Studio</span></h2>
+                <small>Computer Vision Platform</small>
+            </div>
+        </div>
+
+        <div class="nav-heading">WORKSPACE</div>
+
+        <nav class="navigation">
+            <a href="#home" class="nav-link active">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="#filters" class="nav-link">
+                <span class="nav-icon">◈</span>
+                Image Filters
+            </a>
+
+            <a href="#depth" class="nav-link">
+                <span class="nav-icon">◉</span>
+                Depth Estimation
+            </a>
+
+            <a href="#warping" class="nav-link">
+                <span class="nav-icon">⬡</span>
+                Warping & Transformations
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="status-indicator"></div>
+            <span>Computer Vision Engine</span>
+            <small>Ready to process</small>
+        </div>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Top Navigation -->
+        <header class="topbar">
+            <div>
+                <p class="breadcrumb">Workspace / Dashboard</p>
+                <h2>Computer Vision Studio</h2>
+            </div>
+
+            <div class="topbar-right">
+                <span class="status-badge">● System Ready</span>
+                <div class="user-avatar">U</div>
+            </div>
+        </header>
+
+
+        <!-- Dashboard -->
+        <section id="home" class="dashboard">
+
+            <div class="welcome-section">
+                <div>
+                    <p class="eyebrow">IMAGE PROCESSING WORKSPACE</p>
+                    <h1>Explore the world through <span>Computer Vision.</span></h1>
+                    <p class="description">
+                        Capture images, apply advanced filters, estimate object
+                        depth and experiment with geometric transformations.
+                    </p>
+                </div>
+            </div>
+
+
+            <!-- Camera Workspace -->
+            <div class="workspace-grid">
+
+                <div class="panel camera-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>Image Capture</h3>
+                            <p>Capture an image or upload an existing one</p>
+                        </div>
+                        <span class="live-badge">● CAMERA</span>
+                    </div>
+
+                    <div class="camera-preview">
+                        <video id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-placeholder" id="cameraPlaceholder">
+                            <div class="camera-icon">📷</div>
+                            <h3>Camera Preview</h3>
+                            <p>Your live camera feed will appear here</p>
+                        </div>
+                    </div>
+
+                    <div class="camera-actions">
+                        <button class="btn-primary" id="startCameraBtn">
+                            Start Camera
+                        </button>
+                        <button class="btn-primary" id="captureBtn">
+                            ◉ Capture Image
+                        </button>
+                        <label for="imageUpload" class="btn-secondary">
+                            ↑ Upload Image
+                        </label>
+                        <input type="file" id="imageUpload"
+                            accept="image/*" hidden>
+                    </div>
+                </div>
+
+
+                <!-- Image Information -->
+                <div class="panel info-panel">
+
+                    <h3>Image Information</h3>
+                    <p class="panel-subtitle">Current image details</p>
+
+                    <div class="info-item">
+                        <span>Image Name</span>
+                        <strong>Not selected</strong>
+                    </div>
+
+                    <div class="info-item">
+                        <span>Resolution</span>
+                        <strong>-- × --</strong>
+                    </div>
+
+                    <div class="info-item">
+                        <span>Color Mode</span>
+                        <strong>RGB</strong>
+                    </div>
+
+                    <div class="info-item">
+                        <span>File Size</span>
+                        <strong>-- KB</strong>
+                    </div>
+
+                    <div class="info-note">
+                        Select an image to begin processing.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Processing Modules -->
+            <div class="section-heading">
+                <div>
+                    <h2>Processing Modules</h2>
+                    <p>Select a computer vision operation</p>
+                </div>
+            </div>
+
+            <div class="module-grid">
+
+                <a href="#filters" class="module-card">
+                    <div class="module-icon purple">◈</div>
+                    <h3>Image Filters</h3>
+                    <p>Blur, sharpen, grayscale and detect edges.</p>
+                    <span>Explore Filters →</span>
+                </a>
+
+                <a href="#depth" class="module-card">
+                    <div class="module-icon blue">◉</div>
+                    <h3>Depth Estimation</h3>
+                    <p>Calculate depth and generate disparity maps.</p>
+                    <span>Explore Depth →</span>
+                </a>
+
+                <a href="#warping" class="module-card">
+                    <div class="module-icon orange">⬡</div>
+                    <h3>Image Warping</h3>
+                    <p>Apply affine and perspective transformations.</p>
+                    <span>Explore Warping →</span>
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- Image Filters -->
+        <section id="filters" class="operation-section">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">IMAGE PROCESSING</p>
+                    <h2>Image Filters</h2>
+                    <p>Apply different filters to your captured image.</p>
+                </div>
+            </div>
+
+            <div class="panel operation-panel">
+
+                <h3>Select a Filter</h3>
+
+                <div class="filter-grid">
+                    <button class="filter-card" data-filter="grayscale">
+                        <span>01</span>
+                        <h4>Grayscale</h4>
+                        <p>Convert image to grayscale.</p>
+                    </button>
+
+                    <button class="filter-card" data-filter="gaussian">
+                        <span>02</span>
+                        <h4>Gaussian Blur</h4>
+                        <p>Reduce image noise.</p>
+                    </button>
+
+                    <button class="filter-card" data-filter="average">
+                        <span>03</span>
+                        <h4>Average Blur</h4>
+                        <p>Smooth image using averaging.</p>
+                    </button>
+
+                    <button class="filter-card" data-filter="median">
+                        <span>04</span>
+                        <h4>Median Blur</h4>
+                        <p>Remove image noise.</p>
+                    </button>
+
+                    <button class="filter-card" data-filter="bilateral">
+                        <span>05</span>
+                        <h4>Bilateral Filter</h4>
+                        <p>Preserve edges while smoothing.</p>
+                    </button>
+
+                    <button class="filter-card" data-filter="canny">
+                        <span>06</span>
+                        <h4>Canny Edge Detection</h4>
+                        <p>Detect image edges.</p>
+                    </button>
+                </div>
+
+                <div class="parameter-area">
+                    <label>Kernel Size</label>
+                    <select id="kernelSize">
+                        <option value="3">3 × 3</option>
+                        <option value="5">5 × 5</option>
+                        <option value="7">7 × 7</option>
+                    </select>
+
+                    <button class="btn-primary" id="applyFilterBtn">
+                        Apply Filter
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Depth Estimation -->
+        <section id="depth" class="operation-section">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">STEREO VISION</p>
+                    <h2>Depth Estimation</h2>
+                    <p>Estimate the distance of objects using stereo vision.</p>
+                </div>
+            </div>
+
+            <div class="panel operation-panel">
+
+                <h3>Stereo Image Input</h3>
+                <p class="panel-subtitle">
+                    Upload a synchronized left and right camera image pair.
+                </p>
+
+                <div class="stereo-grid">
+
+                    <div class="upload-box">
+                        <div class="upload-icon">▧</div>
+                        <h3>Left Image</h3>
+                        <p>Upload left camera image</p>
+                        <label for="leftImage" class="btn-secondary">
+                            Choose Image
+                        </label>
+                        <input type="file" id="leftImage" accept="image/*" hidden>
+                    </div>
+
+                    <div class="upload-box">
+                        <div class="upload-icon">▧</div>
+                        <h3>Right Image</h3>
+                        <p>Upload right camera image</p>
+                        <label for="rightImage" class="btn-secondary">
+                            Choose Image
+                        </label>
+                        <input type="file" id="rightImage" accept="image/*" hidden >
+                    </div>
+
+                </div>
+
+                <div class="parameter-area">
+                    <label>Algorithm</label>
+                    <select id="algorithm">
+                        <option>StereoBM</option>
+                        <option>StereoSGBM</option>
+                    </select>
+
+                    <button class="btn-primary" id="depthBtn">Generate Depth Map</button>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Warping and Transformations -->
+        <section id="warping" class="operation-section">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">GEOMETRIC PROCESSING</p>
+                    <h2>Warping & Transformations</h2>
+                    <p>Modify image geometry using computer vision techniques.</p>
+                </div>
+            </div>
+
+            <div class="panel operation-panel">
+
+                <h3>Select Transformation</h3>
+
+                <div class="filter-grid">
+
+                    <button class="filter-card" data-transform="rotation">
+                        <span>01</span>
+                        <h4>Rotation</h4>
+                        <p>Rotate the image by a selected angle.</p>
+                    </button>
+
+                    <button class="filter-card" data-transform="translation">
+                        <span>02</span>
+                        <h4>Translation</h4>
+                        <p>Move the image along X and Y axes.</p>
+                    </button>
+
+                    <button class="filter-card" data-transform="affine">
+                        <span>03</span>
+                        <h4>Affine Transform</h4>
+                        <p>Apply scaling, rotation and shearing.</p>
+                    </button>
+
+                    <button class="filter-card" data-transform="perspective">
+                        <span>04</span>
+                        <h4>Perspective Warp</h4>
+                        <p>Change perspective using four points.</p>
+                    </button>
+
+                </div>
+
+                <div class="parameter-area">
+                    <label>Rotation Angle</label>
+                    <input type="number" id="rotationAngle" placeholder="Enter angle">
+
+                    <label>Translation X</label>
+                    <input type="number" id="translationX" placeholder="X offset">
+
+                    <label>Translation Y</label>
+                    <input type="number" id="translationY" placeholder="Y offset">
+
+                    <button class="btn-primary" id="applyTransformBtn">Apply Transformation</button>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Results -->
+        <section class="results-section">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Processing Results</h2>
+                    <p>Compare your original and processed images.</p>
+                </div>
+            </div>
+
+            <div class="workspace-grid">
+
+                <div class="panel result-panel">
+                    <h3>Original Image</h3>
+                    <div class="result-placeholder">
+                        <img id="originalImage" alt="Original Image">
+                    </div>
+                </div>
+
+                <div class="panel result-panel">
+                    <h3>Processed Image</h3>
+                    <div class="result-placeholder">
+                        <img id="processedImage" alt="Processed Image">
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="btn-secondary download-btn" id="downloadBtn">
+                ↓ Download Processed Image
+            </button>
+
+        </section>
+
+
+        <footer>
+            Computer Vision Studio | Built with FastAPI & OpenCV
+        </footer>
+
+    </main>
+    <script src="js/app.js"></script>
+</body>
+</html>

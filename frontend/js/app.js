@@ -186,52 +186,72 @@ filterCards.forEach(function (card) {
 // 8. APPLY FILTER
 // ========================================
 
-document.getElementById("applyFilterBtn")
-    .addEventListener("click", async function () {
+async function applySelectedFilter() {
 
-        if (!currentImage) {
+    if (!currentImage) {
+        alert("Please upload or capture an image first.");
+        return;
+    }
 
-            alert("Please capture or upload an image first.");
+    if (!selectedFilter) {
+        alert("Please select a filter first.");
+        return;
+    }
 
-            return;
-        }
+    const kernelSize = document.getElementById("kernelSize").value;
 
-        const kernelSize =
-            document.getElementById("kernelSize").value;
+    // Create FormData to send image
+    const formData = new FormData();
+    formData.append("image", currentImage);
 
-        const formData = new FormData();
+    // Send filter name and kernel size
+    const params = new URLSearchParams({
+        filter_name: selectedFilter,
+        kernel_size: kernelSize
+    });
 
-        formData.append("image", currentImage);
+    try {
 
-        const url = new URL(`${API_URL}/filters/apply`);
-
-        url.searchParams.append("filter_name", selectedFilter);
-        url.searchParams.append("kernel_size", kernelSize);
-
-        try {
-
-            const response = await fetch(url, {
+        const response = await fetch(
+            `${API_URL}/filters/apply?${params}`,
+            {
                 method: "POST",
                 body: formData
-            });
-
-            if (!response.ok) {
-                throw new Error("Filter processing failed.");
             }
+        );
 
-            await displayProcessedResult(response);
-
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.detail || "Filter could not be applied.");
         }
 
-        catch (error) {
+        // Receive processed image
+        const imageBlob = await response.blob();
 
-            console.error(error);
-
-            alert("Error applying filter. Check your FastAPI server.");
-
+        // Display processed image
+        if (processedImageURL) {
+            URL.revokeObjectURL(processedImageURL);
         }
 
-    });
+        processedImageURL = URL.createObjectURL(imageBlob);
+
+        processedImage.src = processedImageURL;
+        processedImage.style.display = "block";
+
+        alert("Filter applied successfully!");
+
+    } catch (error) {
+        console.error("Filter error:", error);
+        alert(error.message);
+    }
+}
+
+
+// Apply filter when button is clicked
+document.getElementById("applyFilterBtn").addEventListener(
+    "click",
+    applySelectedFilter
+);
 
 
 // ========================================

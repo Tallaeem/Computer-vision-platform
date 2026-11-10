@@ -127,7 +127,7 @@ captureBtn.addEventListener("click", function () {
             "captured_image.png",
             { type: "image/png" }
         );
-
+        alert("Image captured successfully!");
         displayOriginalImage(file);
 
     }, "image/png");
@@ -156,7 +156,37 @@ imageUpload.addEventListener("change", function (event) {
 
 });
 
+function showResult(containerId, imageBlob, title) {
+    const container = document.getElementById(containerId);
+    // Remove previous result URL
+    if (container.dataset.imageUrl) {
+        URL.revokeObjectURL(container.dataset.imageUrl);
+    }
+    // Create URL for processed image
+    const imageURL = URL.createObjectURL(imageBlob);
+    container.dataset.imageUrl = imageURL;
+    // Display result using innerHTML
+    container.innerHTML = `
+        <div class="result-box">
+            <h3>${title}</h3>
+            <div class="result-image">
+                <img src="${imageURL}" alt="Processed Image">
+            </div>
+            <button class="download-result">
+                Download Result
+            </button>
+        </div>
+    `;
 
+    // Download button functionality
+    const downloadButton = container.querySelector(".download-result");
+    downloadButton.addEventListener("click", function() {
+        const link = document.createElement("a");
+        link.href = imageURL;
+        link.download = "processed_image.png";
+        link.click();
+    });
+}
 // ========================================
 // 7. SELECT FILTER
 // ========================================
@@ -227,19 +257,17 @@ async function applySelectedFilter() {
 
         // Receive processed image
         const imageBlob = await response.blob();
-
+        showResult(
+            "filterResult",
+            imageBlob,
+            "Filtered Image - " + selectedFilter
+        );
         // Display processed image
         if (processedImageURL) {
             URL.revokeObjectURL(processedImageURL);
         }
-
         processedImageURL = URL.createObjectURL(imageBlob);
-
-        processedImage.src = processedImageURL;
-        processedImage.style.display = "block";
-
         alert("Filter applied successfully!");
-
     } catch (error) {
         console.error("Filter error:", error);
         alert(error.message);
@@ -257,7 +285,6 @@ document.getElementById("applyFilterBtn").addEventListener(
 // ========================================
 // 9. DISPLAY PROCESSED IMAGE
 // ========================================
-
 async function displayProcessedResult(response) {
 
     const contentType = response.headers.get("content-type") || "";
@@ -302,10 +329,6 @@ async function displayProcessedResult(response) {
         processedImageURL = URL.createObjectURL(blob);
 
     }
-
-    processedImage.src = processedImageURL;
-    processedImage.style.display = "block";
-
 }
 
 
@@ -414,8 +437,13 @@ document.getElementById("applyTransformBtn")
                 throw new Error("Transformation failed.");
             }
 
-            await displayProcessedResult(response);
-
+            // await displayProcessedResult(response);
+            const imageBlob = await response.blob();
+            showResult(
+                "depthResult",
+                imageBlob,
+                "Depth Estimation Result"
+            );
         }
 
         catch (error) {
@@ -472,8 +500,13 @@ document.getElementById("depthBtn")
                 throw new Error("Depth estimation failed.");
             }
 
-            await displayProcessedResult(response);
-
+            // await displayProcessedResult(response);
+            const imageBlob = await response.blob();
+            showResult(
+                "warpingResult",
+                imageBlob,
+                "Image Transformation Result"
+            );
         }
 
         catch (error) {

@@ -121,40 +121,6 @@
                             accept="image/*" hidden>
                     </div>
                 </div>
-
-
-                <!-- Image Information -->
-                <div class="panel info-panel">
-
-                    <h3>Image Information</h3>
-                    <p class="panel-subtitle">Current image details</p>
-
-                    <div class="info-item">
-                        <span>Image Name</span>
-                        <strong>Not selected</strong>
-                    </div>
-
-                    <div class="info-item">
-                        <span>Resolution</span>
-                        <strong>-- × --</strong>
-                    </div>
-
-                    <div class="info-item">
-                        <span>Color Mode</span>
-                        <strong>RGB</strong>
-                    </div>
-
-                    <div class="info-item">
-                        <span>File Size</span>
-                        <strong>-- KB</strong>
-                    </div>
-
-                    <div class="info-note">
-                        Select an image to begin processing.
-                    </div>
-
-                </div>
-
             </div>
 
 
@@ -206,9 +172,7 @@
             </div>
 
             <div class="panel operation-panel">
-
                 <h3>Select a Filter</h3>
-
                 <div class="filter-grid">
                     <button class="filter-card" data-filter="grayscale">
                         <span>01</span>
@@ -259,8 +223,8 @@
                         Apply Filter
                     </button>
                 </div>
-
             </div>
+            <div id="filterResult"></div>
 
         </section>
 
@@ -318,7 +282,7 @@
                 </div>
 
             </div>
-
+            <div id="depthResult"></div>
         </section>
 
 
@@ -379,44 +343,8 @@
                 </div>
 
             </div>
-
+            <div id="warpingResult"></div>
         </section>
-
-
-        <!-- Results -->
-        <section class="results-section">
-
-            <div class="section-heading">
-                <div>
-                    <h2>Processing Results</h2>
-                    <p>Compare your original and processed images.</p>
-                </div>
-            </div>
-
-            <div class="workspace-grid">
-
-                <div class="panel result-panel">
-                    <h3>Original Image</h3>
-                    <div class="result-placeholder">
-                        <img id="originalImage" alt="Original Image">
-                    </div>
-                </div>
-
-                <div class="panel result-panel">
-                    <h3>Processed Image</h3>
-                    <div class="result-placeholder">
-                        <img id="processedImage" alt="Processed Image">
-                    </div>
-                </div>
-
-            </div>
-
-            <button class="btn-secondary download-btn" id="downloadBtn">
-                ↓ Download Processed Image
-            </button>
-
-        </section>
-
 
         <footer>
             Computer Vision Studio | Built with FastAPI & OpenCV
